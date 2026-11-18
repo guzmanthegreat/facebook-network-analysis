@@ -71,13 +71,13 @@ Then open the local URL printed in the terminal, typically `http://localhost:850
 
 ## Dashboard Sections
 
-| Section | What it shows |
-| --- | --- |
-| Overview | Dataset scope and network-level statistics |
-| Structural Importance | Top nodes by degree, degree centrality, or betweenness |
-| Communities | Community sizes and filtered network visualizations |
-| Node Explorer | Search, neighbors, metrics, and ego networks for individual pages |
-| Findings & Limitations | Findings, limitations, and possible next steps |
+| Section                | What it shows                                                     |
+| ---------------------- | ----------------------------------------------------------------- |
+| Overview               | Dataset scope and network-level statistics                        |
+| Structural Importance  | Top nodes by degree, degree centrality, or betweenness            |
+| Communities            | Community sizes and filtered network visualizations               |
+| Node Explorer          | Search, neighbors, metrics, and ego networks for individual pages |
+| Findings & Limitations | Findings, limitations, and possible next steps                    |
 
 ## Key Findings
 
