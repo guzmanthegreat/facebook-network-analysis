@@ -6,7 +6,7 @@ The Streamlit dashboard combines graph preprocessing, network statistics, centra
 
 ## Dashboard Preview
 
-![Facebook Network Analysis dashboard preview](assets/dashboard-preview.svg)
+![Facebook Network Analysis dashboard preview](assets/dashboard-preview.png)
 
 ## Live Demo
 
@@ -28,11 +28,13 @@ Python · pandas · NetworkX · Streamlit · Plotly
 
 ## Dataset
 
-The project uses the 2017 Facebook Public Figures dataset.
+The project uses the [GEMSEC Facebook Public Figures dataset](https://memetracker.stanford.edu/data/gemsec-Facebook.html), collected in November 2017. The repository contains the raw node and edge files used for this analysis.
 
 - **Nodes:** public-figure Facebook pages
 - **Edges:** mutual likes between pages
 - **Network:** undirected and unweighted
+
+The processed graph contains 11,559 nodes and 67,099 edges after validation and preprocessing.
 
 This is a historical network snapshot. A connection represents a mutual page like; it should not automatically be interpreted as friendship, endorsement, collaboration, or real-world influence.
 
