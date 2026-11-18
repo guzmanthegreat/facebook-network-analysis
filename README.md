@@ -10,9 +10,7 @@ The Streamlit dashboard combines graph preprocessing, network statistics, centra
 
 ## Live Demo
 
-The app is deployment-ready for [Streamlit Community Cloud](https://streamlit.io/cloud). To deploy it, connect this repository, select `facebook_network_app.py` as the main file, and use Python 3.11 or later.
-
-> A public demo URL can be added here after the repository is connected to a Streamlit Community Cloud account.
+[Open the live dashboard](https://facebook-network-analysis-bdqcdduwxxjd2bunc3bwtf.streamlit.app/)
 
 ## Highlights
 
