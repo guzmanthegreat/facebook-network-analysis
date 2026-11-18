@@ -7,16 +7,18 @@ import plotly.graph_objects as go
 
 st.set_page_config(
     page_title="Facebook Network Analysis",
+    page_icon="🔗",
     layout="wide"
 )
 
 SEED = 42
 
-st.title("Facebook Public Figures Network Analysis")
+st.title("Facebook Network Analysis")
+st.caption("Interactive exploration of connections, communities, and structural importance among public-figure pages.")
 st.write(
     "This dashboard explores a 2017 Facebook public-figures network where nodes represent "
     "public-figure pages and edges represent mutual page likes. The goal is to understand "
-    "network connectivity, influence, and community structure among public figures."
+    "network connectivity, structural importance, and community structure."
 )
 
 @st.cache_resource(show_spinner=False)
@@ -154,12 +156,22 @@ def build_ego_figure(G, node_df, selected_node):
 with st.spinner("Loading network data..."):
     G, node_df, summary_stats = load_network_data()
 
+with st.sidebar:
+    st.header("About this project")
+    st.caption("A network-analysis portfolio project built with Python, NetworkX, Streamlit, and Plotly.")
+    st.metric("Pages", f"{summary_stats['nodes']:,}")
+    st.metric("Connections", f"{summary_stats['edges']:,}")
+    st.metric("Communities", summary_stats["communities"])
+    st.divider()
+    st.caption("Dataset: 2017 Facebook Public Figures")
+    st.caption("Edges represent mutual page likes and do not necessarily indicate friendship, endorsement, or influence.")
+
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "Overview",
-    "Centrality",
+    "Structural Importance",
     "Communities",
     "Node Explorer",
-    "Interpretation & Limitations"
+    "Findings & Limitations"
 ])
 
 with tab1:
@@ -171,8 +183,8 @@ with tab1:
     **Community Structure:**  
     What do communities look like in the network? Do public figures form clusters based on shared interests?
 
-    **Influence and Centrality:**  
-    Which public figures are the most central or influential, and how are they positioned?
+    **Structural Importance:**  
+    Which public figures occupy the most connected or strategically important positions?
 
     **Network Connectivity:**  
     Is the network highly connected, or does it break into smaller sub-networks?
@@ -216,11 +228,11 @@ with tab1:
         )
 
 with tab2:
-    st.header("Centrality: Who is Most Influential?")
+    st.header("Structural Importance")
 
     st.markdown("""
-    Centrality helps identify important nodes in the network.  
-    Different centrality measures capture different meanings of influence.
+    Centrality measures describe different kinds of structural importance.  
+    They identify highly connected nodes and bridges, but do not prove real-world influence.
     """)
 
     metric = st.selectbox(
@@ -264,7 +276,7 @@ with tab2:
     st.markdown("### Key Insight")
     st.markdown("""
     Degree-based measures identify highly connected hubs, while betweenness identifies bridge nodes.
-    This shows that influence is not just about having many connections. A node can also be important
+    This shows that structural importance is not just about having many connections. A node can also be important
     because it connects otherwise separate parts of the network.
     """)
 
@@ -277,8 +289,7 @@ with tab3:
     """)
 
     community_sizes = (
-        node_df[node_df["community"] != 0]
-        .groupby("community")
+        node_df.groupby("community")
         .size()
         .reset_index(name="num_nodes")
         .sort_values("num_nodes", ascending=False)
@@ -360,9 +371,12 @@ with tab4:
             use_container_width=True
         )
 
+    node_names = node_df.set_index("node")["name"].to_dict()
+    node_options = sorted(node_names, key=lambda n: str(node_names[n]).lower())
     selected_node = st.selectbox(
         "Choose a node to inspect",
-        sorted(node_df["node"].tolist())
+        node_options,
+        format_func=lambda n: f"{node_names[n]} (ID: {n})"
     )
 
     node_row = node_df[node_df["node"] == selected_node].iloc[0]
@@ -415,9 +429,9 @@ with tab5:
     through chains of mutual likes. However, the low density and low average degree show that most
     pages only have a small number of direct connections.
 
-    The centrality results show that influence is unevenly distributed. A small number of public figures
+    The centrality results show that structural prominence is unevenly distributed. A small number of public figures
     act as hubs with many direct connections, while others may serve as bridges between different
-    communities. This means that influence in the network is not only about popularity, but also about
+    communities. This means that importance in the network is not only about popularity, but also about
     structural position.
 
     Community detection shows that the network is divided into many groups. A few communities are very

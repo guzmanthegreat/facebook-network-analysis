@@ -4,6 +4,16 @@ An interactive data science project that analyzes connections among public-figur
 
 The Streamlit dashboard combines graph preprocessing, network statistics, centrality analysis, community detection, and interactive Plotly visualizations. It helps users explore how pages connect globally, which nodes occupy important structural positions, and how individual pages fit into local neighborhoods.
 
+## Dashboard Preview
+
+![Facebook Network Analysis dashboard preview](assets/dashboard-preview.svg)
+
+## Live Demo
+
+The app is deployment-ready for [Streamlit Community Cloud](https://streamlit.io/cloud). To deploy it, connect this repository, select `facebook_network_app.py` as the main file, and use Python 3.11 or later.
+
+> A public demo URL can be added here after the repository is connected to a Streamlit Community Cloud account.
+
 ## Highlights
 
 - Analyzed **11,559 nodes** and **67,099 connections**
@@ -64,10 +74,28 @@ Then open the local URL printed in the terminal, typically `http://localhost:850
 | Section | What it shows |
 | --- | --- |
 | Overview | Dataset scope and network-level statistics |
-| Centrality | Top nodes by degree, degree centrality, or betweenness |
+| Structural Importance | Top nodes by degree, degree centrality, or betweenness |
 | Communities | Community sizes and filtered network visualizations |
 | Node Explorer | Search, neighbors, metrics, and ego networks for individual pages |
-| Interpretation | Findings, limitations, and possible next steps |
+| Findings & Limitations | Findings, limitations, and possible next steps |
+
+## Key Findings
+
+- The network contains **one connected component**, so every page is reachable from every other page through a chain of connections.
+- The graph is sparse, with a density of approximately **0.001**, but the average node still has about **11.6 direct connections**.
+- **Oprah Winfrey** has the highest degree in the processed network with **326 direct connections**.
+- **Daniel Amos**, **Dwayne The Rock Johnson**, and **Hugh Jackman** rank highly by betweenness, suggesting that they occupy important bridge positions in the graph.
+- Community sizes are uneven: the largest detected community contains **4,029 nodes**, while many smaller communities form around more localized patterns.
+
+These findings describe graph structure; they do not establish real-world popularity, endorsement, or influence.
+
+## Testing
+
+Run the repository checks with:
+
+```bash
+python3 -m unittest discover -s tests -v
+```
 
 ## Project Structure
 
@@ -81,6 +109,8 @@ Then open the local URL printed in the terminal, typically `http://localhost:850
 ├── processed_nodes.csv           # Node metrics used by the dashboard
 ├── graph.pkl                     # Serialized NetworkX graph
 ├── summary_stats.pkl             # Network-level summary metrics
+├── tests/                        # Automated artifact checks
+├── assets/                       # README media
 └── README.md
 ```
 
